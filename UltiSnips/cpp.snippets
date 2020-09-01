@@ -1,9 +1,23 @@
+global !p
+def fraction(a, b):
+    try:
+        return "%.1f" % (float(a)/float(b))
+    except (ValueError, ZeroDivisionError):
+        return "ERR"
+endglobal
+
+snippet 75wrds "Log a 750words.com session" b
+750words.com: ${1:750} words in ${2:20} minutes - `!p
+snip.rv = fraction(t[1], t[2])
+` wpm.
+endsnippet
+
 priority -50
 
 extends c
 
 # We want to overwrite everything in parent ft.
-priority -49
+priority 1
 ###########################################################################
 #			    Global functions 						  #
 ###########################################################################
@@ -50,7 +64,7 @@ snippet ns "namespace .. (namespace)"
 namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
 {
 	${VISUAL}$0
-}${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
+}
 endsnippet
 
 snippet readfile "read file (readF)"
@@ -107,4 +121,221 @@ ${1:ReturnType} ${2:FunctionName}(${3:param})
 	${0:FunctionBody}
 }
 endsnippet
+
+#BOOOST TESTS
+snippet bc
+BOOST_CHECK(${1:true});
+endsnippet
+snippet bceq
+BOOST_CHECK_EQUAL(${1:LEFT},${2:RIGHT});
+endsnippet
+
+snippet dsco 
+SAGE_DEBUG_SCOPE(${VISUAL:__FUNCTION__});
+endsnippet
+
+snippet dsta 
+SAGE_DEBUG_STACK();
+endsnippet
+
+snippet dout
+SAGE_DEBUG_OUT(`!p snip.rv = snip.v.text.strip(";")`$0);
+endsnippet
+
+snippet dobj
+SAGE_DEBUG_OBJ(`!p snip.rv = snip.v.text.strip(";")`$0);
+endsnippet
 # vim:ft=snippets:
+
+snippet mouse
+void mousePressEvent(QMouseEvent * event) override;
+void mouseMoveEvent(QMouseEvent * event) override;
+void mouseReleaseEvent(QMouseEvent * event) override;
+endsnippet
+
+snippet env
+\begin{${1:enumerate}}
+    $0
+\end{$1}
+endsnippet
+# TYPE SEMANTICs
+#
+#
+#
+#
+#
+snippet copy 
+//Copy
+${1:T}($1 const & ) = ${2:default};
+$1& operator =($1 const & ) = $2;
+endsnippet
+
+snippet move
+//Move 
+${1:T}($1 && ) = ${2:default};
+$1& operator =($1 && ) = $2;
+endsnippet
+
+snippet copyd
+//Disable copy 
+${1:T}($1 const & ) = ${2:delete};
+$1& operator =($1 const & ) = $2;
+endsnippet
+
+snippet moved
+//disable move 
+${1:T}($1 const & ) = ${2:delete};
+$1& operator =($1 && ) = $2;
+endsnippet
+
+snippet nt
+static_assert(std::is_nothrow_copy_constructible<${1:T}>::value, "");
+static_assert(std::is_nothrow_copy_assignable<$1>::value, "");
+static_assert(std::is_nothrow_move_constructible<$1>::value, "");
+static_assert(std::is_nothrow_move_assignable<$1>::value, "");
+endsnippet
+
+snippet copyable 
+static_assert(std::is_copy_constructible<${1:T}>::value, "");
+static_assert(std::is_copy_assignable<$1>::value, "");
+endsnippet
+
+snippet ntcopyable 
+static_assert(std::is_nothrow_copy_constructible<${1:T}>::value, "");
+static_assert(std::is_nothrow_copy_assignable<$1>::value, "");
+endsnippet
+
+snippet movable 
+static_assert(std::is_move_constructible<${1:T}>::value, "");
+static_assert(std::is_move_assignable<$1>::value, "");
+endsnippet
+
+snippet ntmovable 
+static_assert(std::is_nothrow_move_constructible<${1:T}>::value, "");
+static_assert(std::is_nothrow_move_assignable<$1>::value, "");
+endsnippet
+
+snippet walltimer
+opt<WallTimer> t = WallTimer("${1:Timer}"); 
+endsnippet
+
+snippet pf
+__PRETTY_FUNCTION__
+endsnippet
+
+snippet ostr
+friend std::ostream & operator << (std::ostream&  o, ${2:`!p
+snip.rv = snip.basename or "name"`} const &t)
+{
+  o << t;
+  return o;
+}
+
+endsnippet
+
+snippet %fa
+%formatArgs($1)
+endsnippet
+
+snippet fa
+formatArgs($1)
+endsnippet
+
+
+snippet for "for loop (for)"
+for (size_t ${1:i} = 0; $1 < ${2:X}.size(); ++$1)
+{
+	${VISUAL}$0
+}
+endsnippet
+
+snippet dyncast
+#include "sage/pointers/DynamicCast.hpp"
+
+using sage::pointers::dynamicCast;
+endsnippet
+
+snippet up "Unique Pointer"
+std::unique_ptr<${1:`!p
+snip.rv = snip.v.text.strip("*") or "klass"
+`}>
+endsnippet
+
+
+snippet str
+string(${VISUAL})$0
+endsnippet
+
+snippet ir
+irange(${VISUAL})$0
+endsnippet
+
+snippet oit
+std::ostream_iterator<string>(${1:std::cout})
+endsnippet
+
+snippet tocfg
+sage::cowconfig::Config toConfig(T const & t)
+{
+}
+endsnippet
+
+snippet v
+Vector<$1>(${VISUAL})$0
+endsnippet
+
+snippet s
+Vector<$1>(${VISUAL})$0
+endsnippet
+
+snippet fr
+${1:Vector<int>} const parsed = fromRange<$1>( $0);
+endsnippet
+
+snippet ld
+auto const ${1:ld} = []() {
+};
+endsnippet
+
+snippet topair
+auto const _toPair  = [](auto && t){return make_pair(std::get<0>(t), std::get<1>(t));};
+endsnippet
+
+snippet stm
+SAGE_THROW_MSG(${3:RuntimeError()},${1:"ErrorMessage"});
+endsnippet
+
+snippet c
+const 
+endsnippet
+
+snippet bce
+BOOST_CHECK_EXCEPTION( ${1:`!p
+snip.rv = snip.v.text.strip(";") 
+`},
+RuntimeError,
+[](auto &&e){ return boost::algorithm::contains(e.what(),"Error!");;
+});$0
+endsnippet
+
+snippet bcnt
+BOOST_CHECK_NO_THROW( ${1:`!p
+snip.rv = snip.v.text.strip(";") 
+`});$0
+endsnippet
+snippet bct
+BOOST_CHECK_THROW( ${1:`!p
+snip.rv = snip.v.text.strip(";") 
+`}, RuntimeError);$0
+endsnippet
+
+snippet baj
+boost::algorithm::join(${VISUAL},",");$0
+endsnippet
+snippet bcp
+BOOST_TEST_PASSPOINT();
+endsnippet
+
+snippet prof
+SAGE_PROFILE_TIMER(__FUNCTION__);
+endsnippet

@@ -720,4 +720,22 @@ snippet pmdoc "pocoo style module doc string" b
 $0
 endsnippet
 
+snippet argparse
+import argparse
+
+parser = argparse.ArgumentParser(
+    prog = 'splitCfg',
+    description='Given a cfg file, the program extracts the given key of the map to a different file')
+
+parser.add_argument('infile', type=argparse.FileType('r'), default=None,
+    help="Input config file containing the key to extract")
+parser.add_argument('configkey', 
+    help = 'The key to extract, it must be contained in the config file')
+parser.add_argument('outfile', type=argparse.FileType('w'), default=None,
+    help ="The file where the key will be written to")
+
+args = parser.parse_args()
+
+endsnippet
+
 # vim:ft=snippets:

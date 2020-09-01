@@ -1,0 +1,10 @@
+
+snippet "text"
+#save project and close
+ClickMenu,          "",            "",            menuFile
+ClickMenu,          "",            menuFile,      actionSaveProjectAs
+PressKey,           "",            inputDialogEdit, Ctrl+a,        -672,          -270
+PressKeys,          "",            inputDialogEdit, db_out, -672,          -270
+PressKey,           "",            inputDialogEdit, Return,        -672,          -270
+PressShortcut,      "",            actionClose,   Ctrl+Q,        0,             0
+endsnippet

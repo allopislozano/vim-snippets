@@ -29,6 +29,10 @@ snippet #! "#!/usr/bin/env (!env)" b
 `!p snip.rv = '#!/usr/bin/env ' + getShell() + "\n" `
 endsnippet
 
+snippet bang "#!/usr/bin/env (!env)"
+`!p snip.rv = '#!/usr/bin/env ' + getShell() + "\n\n" `
+endsnippet
+
 snippet sbash "safe bash options" b
 #!/usr/bin/env bash
 set -euo pipefail

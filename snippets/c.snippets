@@ -63,23 +63,29 @@ snippet nocxx
 ## Control Statements
 # if
 snippet if
-	if (${1:true}) {
+	if (${1:true}) 
+	{
 		${0:${VISUAL}}
 	}
 snippet ife
-	if (${1:true}) {
+	if (${1:true}) 
+	{
 		${2:${VISUAL}}
-	} else {
+	}
+	else 
+	{
 		${0}
 	}
 # else
 snippet el
-	else {
+	else 
+	{
 		${0:${VISUAL}}
 	}
 # else if
 snippet elif
-	else if (${1:true}) {
+	else if (${1:true}) 
+	{
 		${0:${VISUAL}}
 	}
 # ifi
@@ -90,19 +96,11 @@ snippet t
 	${1:/* condition */} ? ${2:a} : ${3:b}
 # switch
 snippet switch
-	switch (${1:/* variable */}) {
+	switch (${1:/* variable */}) 
+	{
 		case ${2:/* variable case */}:
-			${3}
-			${4:break;}${5}
-		default:
-			${6}
-	}
-# switch without default
-snippet switchndef
-	switch (${1:/* variable */}) {
-		case ${2:/* variable case */}:
-			${3}
-			${4:break;}${5}
+			${VISUAL}
+			break;
 	}
 # case
 snippet case
